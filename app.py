@@ -5,16 +5,20 @@ import numpy as np
 import pickle
 
 app = Flask(__name__)
+app.env = "development"
 result = ""
+print("I am in flask app")
 
 @app.route('/', methods=['GET'])
 def hello():
+    print("I am In hello. Made some changes")
     return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
     print("Request.method:", request.method)
     print("Request.TYPE", type(request))
+    print("In the process of making a prediction.")
     if request.method == 'POST':
         print(request.form)
         age = request.form['age']
@@ -36,4 +40,4 @@ def predict():
         return render_template('index.html', result=result)
     return render_template('index.html')
 
-app.run(host='0.0.0.0', port=81, debug=False)
+app.run(host='0.0.0.0', port=5001, debug=False)
